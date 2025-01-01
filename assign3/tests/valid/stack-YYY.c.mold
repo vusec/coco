@@ -1,0 +1,23 @@
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+//PREFIX
+
+void other();
+int main() {
+    // RANDOM_CODE
+    // RANDOM_CODE
+    other();
+}
+
+void other() {
+    // RANDOM_CODE
+    int x[4] = {1};
+    // RANDOM_CODE
+    x[INT(0,3)] = 1;
+    // RANDOM_CODE
+    printf("%d\n", (int)x[0]);
+    // RANDOM_CODE
+}

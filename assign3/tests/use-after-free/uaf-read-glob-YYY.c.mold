@@ -1,0 +1,25 @@
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+//PREFIX
+
+int *x = 0;
+
+int main() {
+    // RANDOM_CODE
+    // RANDOM_CODE
+    x = malloc(43);
+    // RANDOM_CODE
+    // RANDOM_CODE
+    printf("%p\n", x);
+    // RANDOM_CODE
+    // RANDOM_CODE
+    free(x);
+    // RANDOM_CODE
+    // RANDOM_CODE
+    printf("%d\n", (int)x[INT(0,5)]);
+    // RANDOM_CODE
+    // RANDOM_CODE
+}

@@ -1,0 +1,76 @@
+
+#include "FenneC.h"
+
+int main() {
+  if (65536 == 65536) Print(1);
+  if (65536 == 2) Print(3);
+  if (65536 == 5) Print(6);
+  if (65536 == 65537) Print(7);
+  if (1 == 3) Print(13);
+  if (1 == 4) Print(14);
+  if (1 == 5) Print(15);
+  if (2 == 1) Print(20);
+  if (2 == 2) Print(21);
+  if (2 == 3) Print(22);
+  if (2 == 5) Print(24);
+  if (2 == 65535) Print(27);
+  if (3 == 65536) Print(28);
+  if (3 == 4) Print(32);
+  if (3 == 5) Print(33);
+  if (3 == 65537) Print(34);
+  if (3 == 65535) Print(36);
+  if (4 == 65536) Print(37);
+  if (4 == 1) Print(38);
+  if (4 == 65535) Print(45);
+  if (5 == 4) Print(50);
+  if (65537 == 1) Print(56);
+  if (2147483647 == 65535) Print(72);
+  if (65535 == 1) Print(74);
+  if (65535 == 3) Print(76);
+  if (65535 == 2147483647) Print(80);
+  if (65536U == 3U) Print(85);
+  if (65536U == 4294967295U) Print(91);
+  if (65536U == 2147483647U) Print(92);
+  if (1U == 65536U) Print(94);
+  if (1U == 3U) Print(97);
+  if (1U == 5U) Print(99);
+  if (1U == 2147483647U) Print(104);
+  if (2U == 4U) Print(110);
+  if (2U == 2147483648U) Print(113);
+  if (2U == 2147483649U) Print(114);
+  if (3U == 1U) Print(119);
+  if (3U == 2U) Print(120);
+  if (3U == 3U) Print(121);
+  if (3U == 5U) Print(123);
+  if (3U == 65537U) Print(124);
+  if (4U == 2U) Print(132);
+  if (4U == 3U) Print(133);
+  if (4U == 5U) Print(135);
+  if (4U == 4294967295U) Print(139);
+  if (4U == 2147483647U) Print(140);
+  if (5U == 65536U) Print(142);
+  if (5U == 3U) Print(145);
+  if (5U == 2147483649U) Print(150);
+  if (65537U == 65536U) Print(154);
+  if (65537U == 5U) Print(159);
+  if (65537U == 2147483649U) Print(162);
+  if (65537U == 2147483647U) Print(164);
+  if (2147483648U == 1U) Print(167);
+  if (2147483648U == 4U) Print(170);
+  if (2147483648U == 65537U) Print(172);
+  if (2147483648U == 2147483649U) Print(174);
+  if (2147483649U == 1U) Print(179);
+  if (2147483649U == 65537U) Print(184);
+  if (2147483649U == 2147483647U) Print(188);
+  if (4294967295U == 65536U) Print(190);
+  if (4294967295U == 4U) Print(194);
+  if (4294967295U == 65537U) Print(196);
+  if (4294967295U == 4294967295U) Print(199);
+  if (2147483647U == 2147483649U) Print(210);
+  if (2147483647U == 4294967295U) Print(211);
+  if (65535U == 3U) Print(217);
+  if (65535U == 65537U) Print(220);
+  if (65535U == 2147483647U) Print(224);
+
+  return 0;
+}

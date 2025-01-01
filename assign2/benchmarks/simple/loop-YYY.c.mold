@@ -1,0 +1,33 @@
+
+#include <stdlib.h>
+#include <stdio.h>
+
+//PREFIX
+
+int main() {
+    // RANDOM_CODE
+    unsigned n = 20U + UINT;
+    // RANDOM_CODE
+    unsigned x = UINT;
+    // RANDOM_CODE
+    unsigned d = UINT;
+    (void)d;
+    // RANDOM_CODE
+    unsigned f1 = UINT * 1;
+    // RANDOM_CODE
+    unsigned f2 = UINT;
+    // RANDOM_CODE
+    for (unsigned i = 0; i < n; i++) {
+        // RANDOM_CODE
+        unsigned y = UINT;
+        // RANDOM_CODE
+        unsigned z = UINT;
+        // RANDOM_CODE
+        x = y + z;
+        // RANDOM_CODE
+        printf("%x\n", f1 * i + x * x);
+        // RANDOM_CODE
+        printf("%x\n", y * f2 + x);
+        // RANDOM_CODE
+    }
+}

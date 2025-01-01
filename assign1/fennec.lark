@@ -1,0 +1,71 @@
+start: "#include \"FenneC.h\"" translation_unit
+
+translation_unit: top_level*
+
+top_level: function | global
+
+function: type _identifier "(" arg_list? ")" compound_stmt
+
+?arg_list: arg | arg "," arg_list
+arg: type _identifier
+
+global: type _identifier "=" literal ";"
+
+compound_stmt: "{" stmt_list? "}"
+
+stmt_list: stmt+
+
+stmt: var_decl | if_stmt | expr_stmt | while_stmt | return_stmt | compound_stmt | ";" -> empty_stmt
+
+if_stmt: "if" "(" expr ")" stmt
+
+while_stmt: "while" "(" expr ")" stmt
+
+return_stmt: "return" expr ";"
+
+return_void: "return" ";"
+
+var_decl: type _identifier "=" expr ";"
+
+assignment: _identifier "=" expr
+
+expr_stmt: expr ";"
+
+expr: assignment
+    | expr "<" expr_1 -> lt
+	| expr ">" expr_1 -> gt
+    | expr "<=" expr_1 -> le
+	| expr ">=" expr_1 -> ge
+	| expr "==" expr_1 -> eq
+	| expr "!=" expr_1 -> ne
+	| expr_1
+
+?expr_1: expr_1 "+" expr_2 -> add
+	   | expr_1 "-" expr_2 -> sub
+	   | expr_2
+
+?expr_2 : expr_2 "*" atom -> mul
+        | expr_2 "/" atom -> div
+	    | atom
+
+?atom : literal
+	  | _identifier -> var_ref
+	  | "&" _identifier -> address_of
+	  | "*" _identifier -> deref
+	  | "(" expr ")"
+	  | call_expr
+
+call_expr: _identifier "(" _call_args? ")"
+_call_args: expr | expr "," _call_args
+
+!literal: "-"? NUMBER | NUMBER "U"
+
+type: "int" -> int | "unsigned" -> unsigned | "void" -> void 
+
+_identifier: CNAME
+
+%import common.NUMBER
+%import common.WS
+%import common.CNAME
+
+%ignore WS

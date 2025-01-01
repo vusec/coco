@@ -1,0 +1,18 @@
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+//PREFIX
+
+int main() {
+    // RANDOM_CODE
+    int *y = malloc(4);
+    // RANDOM_CODE
+    y[INT(1,5)] = 4;
+    // RANDOM_CODE
+    printf("%p\n", y);
+    // RANDOM_CODE
+    free(y);
+    // RANDOM_CODE
+}

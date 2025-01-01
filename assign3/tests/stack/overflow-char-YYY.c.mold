@@ -1,0 +1,28 @@
+
+#include <stdlib.h>
+#include <stdio.h>
+
+//PREFIX
+
+void other();
+int main() {
+    char x1[2] = {2};
+    printf("%p\n", x1);
+    char x2[2] = {2};
+    printf("%p\n", x2);
+    char x3[2] = {2};
+    printf("%p\n", x3);
+    char x4[2] = {2};
+    printf("%p\n", x4);
+    other();
+}
+
+void other() {
+    // RANDOM_CODE
+    char y[4] = {1};
+    // RANDOM_CODE
+    y[INT(5,32)] = 4;
+    // RANDOM_CODE
+    printf("%p\n", y);
+    // RANDOM_CODE
+}

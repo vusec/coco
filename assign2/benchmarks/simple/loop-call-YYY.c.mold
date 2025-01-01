@@ -1,0 +1,31 @@
+
+#include <stdlib.h>
+#include <stdio.h>
+
+//PREFIX
+
+unsigned calledInLoop(unsigned val) {
+    unsigned result = val;
+    // RANDOM_CODE
+    // RANDOM_CODE
+    // RANDOM_CODE
+    result += UINT;
+    // RANDOM_CODE
+    // RANDOM_CODE
+    return result;
+}
+
+int main() {
+    unsigned n = 20U + UINT;
+    unsigned a = UINT + 0;
+    unsigned b = UINT;
+    unsigned c = UINT;
+    unsigned d = UINT;
+    (void)d;
+    for (unsigned i = 0; i < n; i++) {
+        unsigned x = calledInLoop(a);
+        unsigned y = calledInLoop(b);
+        unsigned z = calledInLoop(c);
+        printf("%x %x %x\n", x, y, z);
+    }
+}

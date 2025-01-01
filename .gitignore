@@ -1,0 +1,25 @@
+# Ignore (shared) objects/executables.
+**.so
+**.o
+**/a.out
+*.bin
+# Ignore python caches.
+**/__pycache__
+**.pyc
+# IDE tmps.
+.vscode
+*.user
+# Temp folder for scripts
+tmp
+*.swp
+# This comes from creduce.
+platform.info
+# To avoid checking in locally built packages.
+*.deb
+# Public repo
+public
+coco
+*.zip
+# Temp files from scripts.
+assign4/tmp.c
+assign4/tmp.c.orig

@@ -1,0 +1,35 @@
+
+#include <stdlib.h>
+#include <stdio.h>
+
+//PREFIX
+
+int main() {
+    // RANDOM_CODE
+    unsigned x1 = 4 BINOP 1;
+    // RANDOM_CODE
+    unsigned x2 = 2 BINOP 1;
+    // RANDOM_CODE
+    unsigned x3 = 1 BINOP 1;
+    // RANDOM_CODE
+    unsigned x4 = 5 BINOP 2;
+    // RANDOM_CODE
+    x1 BINOP= 1 BINOP x4;
+    x2 BINOP= 1 BINOP x3;
+    x3 BINOP= 1 BINOP x2;
+    x4 BINOP= 1 BINOP x1;
+    x4 BINOP= x1 BINOP 1;
+    x3 BINOP= x2 BINOP 1;
+    x2 BINOP= x3 BINOP 1;
+    x1 BINOP= x4 BINOP 0;
+    x1 BINOP= 1 BINOP x4;
+    x2 BINOP= 1 BINOP x3;
+    x3 BINOP= 1 BINOP x2;
+    x4 BINOP= x1 BINOP x1;
+    x4 BINOP= x1 BINOP 1;
+    x3 BINOP= x2 BINOP 1;
+    x2 BINOP= x3 BINOP 1;
+    x1 BINOP= x4 BINOP x3;
+    // RANDOM_CODE
+    printf("%x %x %x\n", x1, x2, x3);
+}
