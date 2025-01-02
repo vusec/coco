@@ -11,7 +11,7 @@ grade_dir = os.path.dirname(os.path.realpath(__file__))
 base_dir = os.path.realpath(os.path.join(grade_dir, "..", ".."))
 
 # Timeout in seconds for each individual test.
-grade_timeout = 6
+grade_timeout = 20
 
 # Grade output to a file
 grade_out_var = "GRADE_OUTPUT"
@@ -159,7 +159,7 @@ class Assignment:
         print(name)
 
     def get_output(self, binary) -> str:
-        result = sp.run(binary, stdout=sp.PIPE, stderr=sp.STDOUT)
+        result = sp.run(binary, stdout=sp.PIPE, stderr=sp.STDOUT, timeout=grade_timeout)
         return result.stdout.decode("utf-8")
 
     def expect_exit_code(self, cmd, expected: int) -> bool:

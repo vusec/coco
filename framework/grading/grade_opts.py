@@ -171,11 +171,15 @@ def grade_optimizations(args):
 
     for t in a.list_tests("simple/"):
         a.report_test_start(t.name)
-        bench = Benchmark(a, t.name, t.path)
-        bench.do_benchmark()
-        total_improvements += [bench.get_percentage_improvement()]
-        print(bench.get_score_str())
-        if not bench.is_optimized_output_correct():
+        try:
+            bench = Benchmark(a, t.name, t.path)
+            bench.do_benchmark()
+            total_improvements += [bench.get_percentage_improvement()]
+            print(bench.get_score_str())
+            if not bench.is_optimized_output_correct():
+                failed_tests += 1
+        except sp.CalledProcessError as e:
+            a.report_error("Failed to run command: " + " ".join(e.cmd))
             failed_tests += 1
 
     if not clean_config:
@@ -185,11 +189,15 @@ def grade_optimizations(args):
         )
         for t in a.list_tests("csmith/"):
             a.report_test_start(t.name)
-            bench = Benchmark(a, t.name, t.path)
-            if not bench.is_optimized_output_correct():
+            try:
+                bench = Benchmark(a, t.name, t.path)
+                if not bench.is_optimized_output_correct():
+                    failed_tests += 1
+                else:
+                    a.report_test_pass()
+            except sp.CalledProcessError as e:
+                a.report_error("Failed to run command: " + " ".join(e.cmd))
                 failed_tests += 1
-            else:
-                a.report_test_pass()
 
     score = statistics.fmean(total_improvements)
     # Deduct 2 for each failed test.
