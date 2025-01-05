@@ -16,7 +16,7 @@ RUN apt-get update && \
 # In theory we could also rebuild this from source, but it takes a while to
 # build and the debian build system is shit.
 COPY install-creduce.sh /install-creduce.sh
-RUN /install-creduce.sh ; rm /install-creduce.sh
+RUN bash -x /install-creduce.sh ; rm /install-creduce.sh
 
 RUN userdel -r ubuntu && useradd coco -u 1000 -m -s /bin/bash && echo "coco ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 RUN pip3 install --break-system-packages lark llvmlite
