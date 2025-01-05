@@ -12,7 +12,7 @@ RUN apt-get update && \
     llvm-14-dbgsym llvm-14-dev-dbgsym llvm-14-tools-dbgsym llvm-14-runtime-dbgsym clang-14-dbgsym valgrind
 
 # The creduce shipped by ubuntu is broken and linked against the wrong LLVM version.
-# THis is just a source rebuild.
+# This is just a source rebuild.
 # In theory we could also rebuild this from source, but it takes a while to
 # build and the debian build system is shit.
 COPY install-creduce.sh /install-creduce.sh
