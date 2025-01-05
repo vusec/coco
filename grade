@@ -2,4 +2,5 @@
 
 set -e
 cd "$(dirname "$0")"
+chmod +x ./framework/grading/grade.py
 ./framework/grading/grade.py "$@"
