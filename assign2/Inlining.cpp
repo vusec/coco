@@ -11,7 +11,19 @@ using namespace llvm;
 
 namespace {
 struct CocoInlinerPass : PassInfoMixin<CocoInlinerPass> {
+  bool tryInline(Function &f, CallInst &call) {;
+    InlineFunctionInfo info;
+    auto InlineRes = InlineFunction(call, info);
+    assert(InlineRes.isSuccess() && "Expected inlining to succeed");
+    return true;
+  }
+
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &) {
+    CallGraph cg(M);
+    for (auto  &funcAndNode : cg) {
+      Function *f = const_cast<Function *>(funcAndNode.first);
+      // TODO
+    }
     return PreservedAnalyses::all();
   }
 };

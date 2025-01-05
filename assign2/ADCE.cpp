@@ -8,7 +8,12 @@ using namespace llvm;
 
 namespace {
 struct CocoADCE : PassInfoMixin<CocoADCE> {
-  PreservedAnalyses run(Function &F, FunctionAnalysisManager &) {
+  PreservedAnalyses run(Function &F, FunctionAnalysisManager &) {\
+    // Dummy code for depth first visiting of blocks.
+    df_iterator_default_set<BasicBlock *> Reachable;
+    for (BasicBlock *BB : depth_first_ext(&F, Reachable)) {
+    }
+
     return PreservedAnalyses::all();
   }
 };
