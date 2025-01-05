@@ -15,8 +15,6 @@ inline void reportUnsupported(Instruction &I) {
     exit(1);
 }
 
-inline unsigned instructionCacheSize() { return 8; }
-
 inline unsigned getCycleCount(Instruction &I) {
     if (BinaryOperator *BO = dyn_cast<BinaryOperator>(&I)) {
         switch(BO->getOpcode()) {
