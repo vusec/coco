@@ -84,6 +84,7 @@ def start():
     args += ["--mount", f"type=bind,source={script_dir},target={docker_home_dir}"]
     # Use the user's git configuration
     args += "--volume", str(pathlib.Path.home()) + "/.gitconfig:/home/coco/.gitconfig"
+    args += "--volume", str(pathlib.Path.home()) + "/.ssh:/home/coco/.ssh"
     if cmd_args.command:
         args += [image_name]
         args += [shell, "-c", cmd_args.command]
