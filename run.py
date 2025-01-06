@@ -6,6 +6,7 @@ import subprocess as sp
 import os
 import socket
 import sys
+import pathlib
 
 if socket.gethostname() == "coco" and getpass.getuser() == "coco":
     print("error: It appears you're already in the docker container.")
@@ -81,6 +82,8 @@ def start():
         args += ["--ulimit", "nofile=10000:10000"]
     # Mount the course folder in the container.
     args += ["--mount", f"type=bind,source={script_dir},target={docker_home_dir}"]
+    # Use the user's git configuration
+    args += "--volume", str(pathlib.Path.home()) + "/.gitconfig:/home/coco/.gitconfig"
     if cmd_args.command:
         args += [image_name]
         args += [shell, "-c", cmd_args.command]
