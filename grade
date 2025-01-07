@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
 cd "$(dirname "$0")"
 chmod +x ./framework/grading/grade.py
+set -e
 ./framework/grading/grade.py "$@"
