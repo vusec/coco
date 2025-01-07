@@ -50,8 +50,6 @@ expr: assignment
 
 ?atom : literal
 	  | _identifier -> var_ref
-	  | "&" _identifier -> address_of
-	  | "*" _identifier -> deref
 	  | "(" expr ")"
 	  | call_expr
 
