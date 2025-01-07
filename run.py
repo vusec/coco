@@ -28,6 +28,12 @@ parser.add_argument(
     "-l", "--legacy", action="store_true", help="Don't use build kit from docker"
 )
 parser.add_argument(
+    "-y", "--nohost", action="store_true", help="Don't use network=host fix."
+)
+parser.add_argument(
+    "-d", "--download", action="store_true", help="Download image instead of building locally."
+)
+parser.add_argument(
     "-c", "--command", default=None, help="Command to run instead of shell."
 )
 parser.add_argument(
@@ -41,9 +47,14 @@ cmd_args = parser.parse_args()
 build_container = not cmd_args.nobuild
 verbose = cmd_args.verbose
 nosudo = cmd_args.nosudo
+nohost = cmd_args.nohost
+download = cmd_args.download
 
 docker_cmd = ["docker"] if nosudo else ["sudo", "docker"]
 image_name = "coco/docker"
+if download:
+    image_name = "teemperor/coco"
+    build_container = False
 
 # The default dir in the docker container.
 docker_home_dir = "/home/coco/mnt/"
@@ -52,7 +63,7 @@ shell = "/usr/bin/fish"
 
 # Extra args passed to all docker commands.
 # --network=host gets networking running if the host's network drivers are busted.
-docker_extra_args = ["--network=host"]
+docker_extra_args = [] if nohost else ["--network=host"]
 
 # The path to the docker file.
 docker_path = os.path.join(script_dir, "framework", "docker")
