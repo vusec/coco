@@ -65,6 +65,17 @@ shell = "/usr/bin/fish"
 # --network=host gets networking running if the host's network drivers are busted.
 docker_extra_args = [] if nohost else ["--network=host"]
 
+# Handle SELinux
+try:
+    result = sp.run(["getenforce"], check=True, stdout=sp.PIPE, text=True)
+    if result.stdout.strip() == "Enforcing":
+        selinux_mount_options = ",relabel=shared"
+    else:
+        selinux_mount_options = ""
+except sp.CalledProcessError:
+    selinux_mount_options = ""
+docker_extra_args += [f"--mount=type=bind,source={script_dir},target={docker_home_dir}{selinux_mount_options}"]
+
 # The path to the docker file.
 docker_path = os.path.join(script_dir, "framework", "docker")
 
