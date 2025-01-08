@@ -14,6 +14,7 @@ skipped_suffixes = [
     ".gitignore",
     ".md",
     "opt-tmp",
+    "__pycache__",
 ]
 
 
