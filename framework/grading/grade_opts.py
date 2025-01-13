@@ -174,7 +174,8 @@ def grade_optimizations(args):
         try:
             bench = Benchmark(a, t.name, t.path)
             bench.do_benchmark()
-            total_improvements += [bench.get_percentage_improvement()]
+            percentage_improved = bench.get_percentage_improvement()
+            total_improvements += [percentage_improved if percentage_improved <= 1 else 1]
             print(bench.get_score_str())
             if not bench.is_optimized_output_correct():
                 failed_tests += 1
