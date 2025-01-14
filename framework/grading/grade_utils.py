@@ -108,6 +108,10 @@ class Assignment:
         self.basedir = basedir
         self.filter = args.filter
 
+        # Write a default grade file if requested. This avoid having some
+        # undefined point count if the grade script or grading VM crashes.
+        self._write_grade_file(0, 1)
+
     def report_test_start(self, test_name, is_safeguard=False):
         self.current_test_is_safeguard = is_safeguard
         safeguard_str = ""
@@ -175,6 +179,11 @@ class Assignment:
             return False
         return True
 
+    def _write_grade_file(self, points, max_points):
+        if grade_output_json:
+            with open(grade_output_json, "w") as out:
+                out.write(f'{{ "tag": "points", "points": "{points}/{max_points}" }}\n')
+
     def give_grade_with_score(self, assignment_name, points, max_points):
         if not self.can_give_grade():
             return
@@ -187,9 +196,7 @@ class Assignment:
         msg = f"Final grade for assignment {assignment_name}: {points:.1f} of {max_points} pts"
         print(msg)
 
-        if grade_output_json:
-            with open(grade_output_json, "w") as out:
-                out.write(f'{{ "tag": "points", "points": "{points}/{max_points}" }}\n')
+        self._write_grade_file(points, max_points)
 
     def can_give_grade(self):
         if self.filter:
