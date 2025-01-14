@@ -15,7 +15,7 @@ compound_stmt: "{" stmt_list? "}"
 
 stmt_list: stmt+
 
-stmt: var_decl | if_stmt | expr_stmt | while_stmt | return_stmt | compound_stmt | ";" -> empty_stmt
+stmt: return_stmt | var_decl | if_stmt | while_stmt | compound_stmt | expr_stmt | ";" -> empty_stmt
 
 if_stmt: "if" "(" expr ")" stmt
 
