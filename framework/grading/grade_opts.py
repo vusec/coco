@@ -12,6 +12,11 @@ optimize_path = os.path.join(base_dir, "assign2", "optimize.sh")
 
 clean_config = "CLEAN_CONFIG" in os.environ
 
+# Any improvement above this won't yield more points.
+# This avoids that student can optimize a few test cases
+# so much they can skip  most of the assignment.
+# 1 = 100% cap, 2 = 200% cap, and so on.
+per_test_case_cap = 1
 
 def get_score_for_source(src: str) -> int:
     output = sp.check_output([biome_path, src], timeout=grade_timeout).decode("utf-8")
@@ -174,7 +179,10 @@ def grade_optimizations(args):
         try:
             bench = Benchmark(a, t.name, t.path)
             bench.do_benchmark()
-            total_improvements += [bench.get_percentage_improvement()]
+            percentage_improved = bench.get_percentage_improvement()
+            percentage_improved = min(per_test_case_cap, percentage_improved)
+            total_improvements += [percentage_improved]
+
             print(bench.get_score_str())
             if not bench.is_optimized_output_correct():
                 failed_tests += 1
