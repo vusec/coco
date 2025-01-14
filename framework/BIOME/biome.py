@@ -118,11 +118,11 @@ class Program:
     
         return cycles
 
-    def profile_code(self) -> int:
+    def profile_code(self, timeout : int) -> int:
         self.compile_instrumented()
 
         run_result = sp.run([self.compiled_path], shell=False,
-                            capture_output = True, text = True) # type: sp.CompletedProcess
+                            capture_output = True, text = True, timeout = timeout) # type: sp.CompletedProcess
 
         if run_result.returncode != 0:
             info = "ls: " + sp.getoutput(f"ls -alht {self.compiled_path}")
@@ -142,8 +142,9 @@ class Program:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Benchmark program with BIOME.")
     parser.add_argument('input', type=str, help='The source file to run')
+    parser.add_argument('-t', '--timeout', type=int, default=30, help='Timeout (seconds)')
     args = parser.parse_args()
     with tempfile.TemporaryDirectory(dir=cache_dir) as tmp:
         program = Program(input_file=args.input, tmp_dir=tmp)
-        cycle_count = program.profile_code()
+        cycle_count = program.profile_code(timeout=args.timeout)
         print("SCORE:" + str(cycle_count))

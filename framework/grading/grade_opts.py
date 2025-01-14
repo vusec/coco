@@ -19,7 +19,7 @@ clean_config = "CLEAN_CONFIG" in os.environ
 per_test_case_cap = 1
 
 def get_score_for_source(src: str) -> int:
-    output = sp.check_output([biome_path, src], timeout=grade_timeout).decode("utf-8")
+    output = sp.check_output([biome_path, src, "--timeout", str(grade_timeout)], timeout=grade_timeout).decode("utf-8")
     prefix = "SCORE:"
     for line in output.splitlines():
         if line.startswith(prefix):
