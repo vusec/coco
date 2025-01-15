@@ -43,8 +43,9 @@ to_replace_list = [
     "/assign1/tests",
     "/assign2/benchmarks",
     "/assign3/tests",
-    "/assign4/tests",
-    "/assign4/original-src",
+    # Removed until assignment 4 is back.
+    #"/assign4/tests",
+    #"/assign4/original-src",
     "/run.py",
     "/grade",
 ]
