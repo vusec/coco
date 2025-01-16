@@ -117,6 +117,12 @@ def grade_broken_pass(args, assignment_name, pass_name):
 
     a.give_grade(assignment_name, 3)
 
+    if "PRINT_DIFF" in os.environ:
+        print("Pass code diff:")
+        original_src = assignment_dir + "/original-src/" + pass_name + ".cpp"
+        fixed_src = assignment_dir + "/" + pass_name + ".cpp"
+        os.system(f"diff -U1 {original_src} {fixed_src}")
+
 
 def grade_pass_simplify(args):
     grade_broken_pass(args, "4.2", "InstSimplify")
