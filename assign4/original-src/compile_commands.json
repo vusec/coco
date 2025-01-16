@@ -1,0 +1,14 @@
+[
+  { "directory": "/home/coco/mnt/assign4/original-src",
+    "arguments": ["clang", "-I/usr/lib/llvm-14/include", "-std=c++14", "-fno-exceptions", "-D_GNU_SOURCE", "-D__STDC_CONSTANT_MACROS", "-D__STDC_FORMAT_MACROS", "-D__STDC_LIMIT_MACROS", "-c", "-o", "GVN.o", "GVN.cpp"],
+    "file": "GVN.cpp"
+  },
+  { "directory": "/home/coco/mnt/assign4/original-src",
+    "arguments": ["clang", "-I/usr/lib/llvm-14/include", "-std=c++14", "-fno-exceptions", "-D_GNU_SOURCE", "-D__STDC_CONSTANT_MACROS", "-D__STDC_FORMAT_MACROS", "-D__STDC_LIMIT_MACROS", "-c", "-o", "GlobalOpt.o", "GlobalOpt.cpp"],
+    "file": "GlobalOpt.cpp"
+  },
+  { "directory": "/home/coco/mnt/assign4/original-src",
+    "arguments": ["clang", "-I/usr/lib/llvm-14/include", "-std=c++14", "-fno-exceptions", "-D_GNU_SOURCE", "-D__STDC_CONSTANT_MACROS", "-D__STDC_FORMAT_MACROS", "-D__STDC_LIMIT_MACROS", "-c", "-o", "InstSimplify.o", "InstSimplify.cpp"],
+    "file": "InstSimplify.cpp"
+  }
+]
