@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Note for students: You can skip to the end of this file for the actual
 # optimization pass pipeline. The code inbetween is just boilerplate

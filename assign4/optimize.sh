@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ "$#" -ne 3 ]; then
     echo "Invoke as: $0 INPUT.ll OUTPUT PassName"

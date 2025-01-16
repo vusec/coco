@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 LLVM_FLAGS=$(llvm-config-14 --cxxflags --libfiles all)
 SO_FLAGS=" -shared -fPIC -g -fsanitize=undefined -fno-sanitize-recover=all -Wno-missing-template-keyword"
