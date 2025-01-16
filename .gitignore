@@ -23,3 +23,6 @@ coco
 # Temp files from scripts.
 assign4/tmp.c
 assign4/tmp.c.orig
+
+.direnv
+
