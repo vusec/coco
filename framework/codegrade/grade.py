@@ -75,7 +75,7 @@ grade_file = "grade-out-" + str(random.randrange(0, 10000000)) + ".json"
 run_py = os.path.join(student_coco, "run.py")
 cmd = [run_py, "--nobuild", "--nosudo", "-c"]
 # This is one string as it's passed to the shell in docker.
-cmd += [f'PROFILE_CODE=1 PRINT_DIFF=1 NOCOLOR=1 GRADE_OUTPUT={grade_file} ./grade -a ' + task]
+cmd += [f'NO_HELP=1 PROFILE_CODE=1 PRINT_DIFF=1 NOCOLOR=1 GRADE_OUTPUT={grade_file} ./grade -a ' + task]
 sp.check_call(cmd, cwd=student_coco)
 
 # Copy the grade file from the agreed
