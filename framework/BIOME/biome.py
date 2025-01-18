@@ -246,7 +246,8 @@ class Visualizer:
             print(f"{COLOR_UNDERLINE}{col}{COLOR_END}: {desc}")
 
     def print(self, total_cycles):
-        self.print_legend()
+        if not (NO_HELP_VAR in os.environ):
+            self.print_legend()
         print("\nHeat map of program:")
         print(COLOR_UNDERLINE + LineMetaData.get_header_line() + COLOR_END)
         # The cycles spent so far in the current BB.
