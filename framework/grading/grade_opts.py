@@ -26,8 +26,11 @@ def get_score_for_source(src: str) -> int:
             score_str = line[len(prefix) :].strip()
             return int(score_str)
 
-def get_biome_heatmap(src: str) -> int:
-    return sp.check_output([biome_path, src, "--timeout", str(grade_timeout), "--visualize"], timeout=grade_timeout).decode("utf-8")
+def get_biome_heatmap(src: str):
+    try:
+        return sp.check_output([biome_path, src, "--timeout", str(grade_timeout), "--visualize"], timeout=grade_timeout).decode("utf-8")
+    except sp.CalledProcessError as e:
+        print("Failed to get BIOME output: " + str(e))
 
 class Benchmark:
     def __init__(self, a: Assignment, name: str, source: str):

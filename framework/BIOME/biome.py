@@ -144,6 +144,9 @@ The actual LLVM IR that is being benchmarked.
             return COLOR_GOOD
         return COLOR_BORING
 
+    def is_empty(self):
+        return self.line.strip() == ""
+
     def get_line_report(self, all_metadata):
         inst = self._extract_inst()
         result = ""
@@ -212,9 +215,15 @@ class Visualizer:
         if line.startswith("attributes "):
             return True
         # Hide some metadata and globals.
+        if line.startswith("declare "):
+            return True
         if line.startswith("target "):
             return True
         if line.startswith("@"):
+            return True
+        if line.startswith(";"):
+            return True
+        if line.startswith("source_filename ="):
             return True
         return False
 
@@ -250,7 +259,13 @@ class Visualizer:
             self.print_legend()
         print("\nHeat map of program:")
         print(COLOR_UNDERLINE + LineMetaData.get_header_line() + COLOR_END)
+
+        if len(self.line_data_in_order) == 0:
+            print("No data")
+            return
+
         # The cycles spent so far in the current BB.
+        last_line = self.line_data_in_order[0]
         total_cycles_bb = 0
         for line_data in self.line_data_in_order:
             # At the end of a BB, print a summary.
@@ -264,6 +279,10 @@ class Visualizer:
                 total_cycles_bb = 0
             else:
                 total_cycles_bb += line_data.get_total_cycles()
+            # Turn multiple empty lines into one.
+            if last_line.is_empty() and line_data.is_empty():
+                continue
+            last_line = line_data
             # Print the specific line report.
             print(line_data.get_line_report(self.line_data_in_order))
 
