@@ -50,11 +50,14 @@ struct BIOMEPass : PassInfoMixin<BIOMEPass> {
   void instrument(InstToInstrument &I) {
     IRBuilder<> builder(I.Inst);
     Value *str = builder.CreateGlobalString(I.getInfoStr(), "biome_info");
-
     str = builder.CreatePointerCast(str, strType);
-
     std::vector<Value *> printArgs = {str};
     builder.CreateCall(FunctionCallee(getPutsFunc()), printArgs, "biome_print");
+
+    // Add a unique annotation. We use this later to identify each line
+    // in the simple biome.py visualizer. THis is just here to make each
+    // line have unique content.
+    I.Inst->addAnnotationMetadata("BIOME-ID:" + std::to_string(I.index));
   }
 
   void analyze(Instruction &I) {

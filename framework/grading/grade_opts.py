@@ -26,6 +26,8 @@ def get_score_for_source(src: str) -> int:
             score_str = line[len(prefix) :].strip()
             return int(score_str)
 
+def get_biome_heatmap(src: str) -> int:
+    return sp.check_output([biome_path, src, "--timeout", str(grade_timeout), "--visualize"], timeout=grade_timeout).decode("utf-8")
 
 class Benchmark:
     def __init__(self, a: Assignment, name: str, source: str):
@@ -158,6 +160,9 @@ class Benchmark:
             color = COLOR_WARN
         result = f"{color}{percent_diff:.1f}%{COLOR_END} of ideal performance."
         result += f"\n      Detailed runtimes in cycles: Unopt={self.base_score}, Opt={self.measured_score}, Perfect={self.perfect_score}"
+
+        if "PROFILE_CODE" in os.environ:
+            result += get_biome_heatmap(self.opt_source)
 
         return result
 
