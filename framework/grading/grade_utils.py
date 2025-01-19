@@ -6,6 +6,7 @@ import subprocess as sp
 import sys
 import json
 import socket
+import shutil
 
 grade_dir = os.path.dirname(os.path.realpath(__file__))
 base_dir = os.path.realpath(os.path.join(grade_dir, "..", ".."))
@@ -85,6 +86,8 @@ def should_rebuild(sources, target) -> bool:
     assert isinstance(sources, list), "Needs a list of sources, not just one"
 
     for src in sources:
+        if not os.path.exists(src):
+            src = shutil.which(src)
         if os.path.getmtime(src) > os.path.getmtime(target):
             return True
     return False
