@@ -19,7 +19,16 @@
       }: {
         devShells.default = pkgs.mkShell {
           env.LLVM_CONFIG = "llvm-config";
+
+          hardeningDisable = ["all"];
+
           buildInputs = with pkgs; [
+            (hiPrio (runCommand "clang-14" {} ''
+              mkdir -p $out/bin
+              ln -s ${llvmPackages_14.clang}/bin/clang $out/bin/clang-14
+              ln -s ${llvmPackages_14.libllvm}/bin/opt $out/bin/opt-14
+            ''))
+            jq
             ccls
             (hiPrio llvmPackages_14.clang-tools)
             alejandra
@@ -28,6 +37,7 @@
             pkg-config
             bear
             gnumake
+            (python3.withPackages (ps: [ps.lark ps.llvmlite]))
           ];
         };
       };
