@@ -1,5 +1,5 @@
 {
   "comment" : "This file contains the paths to opt/clang used in the framework tools",
-  "opt" : "/usr/bin/opt-14",
-  "clang" : "/usr/bin/clang-14"
+  "opt" : "opt-14",
+  "clang" : "clang-14"
 }
