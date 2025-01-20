@@ -48,9 +48,9 @@ inline unsigned getCycleCount(Instruction &I) {
     if (isa<BitCastInst>(I)) return 0;
     if (isa<PtrToIntInst>(I)) return 0;
 
-    // We make calls cheap, as the real cost is that they flush the icache
-    // when they jump to a new instruction.
-    // For simplicity, we keep external library functions cheap.
+    // Calls are pretty constant. There is a cost for passing args (like
+    // on a 'real' machine. External library calls to printf are just
+    // constant. We only call some printf stuff in the benchmarks.
     if (CallInst *Call = dyn_cast<CallInst>(&I))
         return 1U + Call->getNumOperands();
 
