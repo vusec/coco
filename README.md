@@ -25,4 +25,4 @@ have 'expr' in their name, such as `global-expr.c`.
 Run `./handin -a 1` in the docker container
 to create a zip archive with your assignment 1
 work. The same goes for assignments 2, 3 and 4.
-You still have to manually submi
+You still have to manually submit your work to Canvas.
