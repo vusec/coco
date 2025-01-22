@@ -1,5 +1,6 @@
 .PHONY : all
-all : ExampleBrokenPass.so GVN.so GVN.original.so GlobalOpt.so GlobalOpt.original.so InstSimplify.so InstSimplify.original.so
+GENERATED_FILES = ExampleBrokenPass.so GVN.so GVN.original.so GlobalOpt.so GlobalOpt.original.so InstSimplify.so InstSimplify.original.so
+all : $(GENERATED_FILES)
 COMPILE="../framework/utils/compile-pass.sh"
 
 ExampleBrokenPass.so: ExampleBrokenPass.cpp
@@ -25,3 +26,6 @@ GlobalOpt.so: GlobalOpt.cpp
 
 GlobalOpt.original.so: original-src/GlobalOpt.cpp
 	${COMPILE} original-src/GlobalOpt.cpp GlobalOpt.original.so
+
+clean:
+	rm -f $(GENERATED_FILES)
