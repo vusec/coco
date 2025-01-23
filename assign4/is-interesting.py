@@ -20,6 +20,16 @@ passes = [
     "InstSimplify.original",
 ]
 
+def generate_random_c_program() -> str:
+    random_program = "random_program.c"
+    try:
+        # Run Csmith to generate a random C program
+        subprocess.run(["csmith", "--output", random_program], check=True)
+        return random_program
+    except subprocess.CalledProcessError as e:
+        print(f"Error generating random C program: {e}", file=sys.stderr)
+        sys.exit(1)
+
 def run_program(input_file: str, output_file: str) -> str:
     try:
         result = subprocess.run([input_file], check=True, text=True, capture_output=True)
@@ -54,7 +64,8 @@ def main():
     parser.add_argument('-i', '--input', required=True, help='Source file to test', type=str)
     parser.add_argument('-p', '--optpass', required=False, help='Optimization pass to test', type=str, choices=passes, default="None")
     args = parser.parse_args()
-
+    generate_random_c_program()
+    
     try:
         if is_source_interesting(args.input, args.optpass):
             sys.exit(0)

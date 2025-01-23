@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 if [ "$#" -ne 3 ]; then
     echo "Invoke as: $0 INPUT.ll OUTPUT PassName"
     echo " Possible passes are: ExampleBrokenPass GlobalOpt GVN InstSimplify"
@@ -15,19 +14,20 @@ INPUT="$1"
 OUTPUT="$2"
 PASS="$3"
 
-# Remove the '.original' from the pass name.
 PASS_NAME="${PASS/.original/}"
 
 LL_FILE="${OUTPUT}.preopt.ll"
 OPT_FILE="${OUTPUT}.opt.ll"
 MEM2REG_FILE="${OUTPUT}.mem2reg.ll"
 
-# Fine the LLVM opt binary. The config.json has the path to it.
 CONFIG_FILE="${SCRIPT_DIR}/../framework/config.json"
 LLVM_OPT_BINARY=$(jq -r .opt ${CONFIG_FILE})
 CLANG_BINARY=$(jq -r .clang ${CONFIG_FILE})
 
-"${CLANG_BINARY}" "${INPUT}" -o "${LL_FILE}" -S -emit-llvm -Xclang -disable-O0-optnone -I /usr/include/csmith/ -Wno-everything
+CSMITH_INCLUDE_PATH="../../csmith-install/include"
+
+echo "${CLANG_BINARY} ${INPUT} -o ${LL_FILE} -S -emit-llvm -Xclang -disable-O0-optnone -I${CSMITH_INCLUDE_PATH} -Wno-everything"
+"${CLANG_BINARY}" "${INPUT}" -o "${LL_FILE}" -S -emit-llvm -Xclang -disable-O0-optnone -I"${CSMITH_INCLUDE_PATH}" -Wno-everything
 
 if [ "$PASS" = "None" ]; then
     "${CLANG_BINARY}" "${LL_FILE}" -o "${OUTPUT}"
