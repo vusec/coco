@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 if [ "$#" -ne 3 ]; then
     echo "Invoke as: $0 INPUT.ll OUTPUT PassName"
     echo " Possible passes are: ExampleBrokenPass GlobalOpt GVN InstSimplify"
@@ -36,4 +37,5 @@ fi
 OPT="${LLVM_OPT_BINARY} -load-pass-plugin=${SCRIPT_DIR}/${PASS}.so -S "
 ${OPT} "-passes=mem2reg" "${LL_FILE}" -o "${MEM2REG_FILE}"
 ${OPT} "-passes=${PASS_NAME}" "${MEM2REG_FILE}" -o "${OPT_FILE}"
-"${CLANG_BINARY}" "${OPT_FILE}" -o "${OUTPUT}"
+"${CLANG_BINARY}" "${LL_FILE}" -o "${OUTPUT}.unoptimized"
+"${CLANG_BINARY}" "${OPT_FILE}" -o "${OUTPUT}.optimized"
