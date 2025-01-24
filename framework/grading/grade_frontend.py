@@ -55,6 +55,11 @@ def grade_ir_gen(args):
         binary = test_input + ".bin"
         output_file = test_input + ".expected_output"
 
+        # Delete existing file. This avoids that the cached file might break
+        # if the students silently mess up generating the output.
+        if os.path.exists(ll_file):
+            os.remove(ll_file)
+
         # Generate the expected output if it doesn't exist.
         if not os.path.exists(output_file):
             clang_args = [get_clang_binary(), test_input, "-o", binary, runtime_file]
@@ -73,6 +78,11 @@ def grade_ir_gen(args):
         # Run frontend (this is what the student is writing).
         if not a.expect_exit_code([compile_sh, test_input, ll_file], 0):
             continue
+
+        if not os.path.exists(ll_file):
+            a.report_error(f"Can't find output file {ll_file}.\n" +
+                           "Your script did not seem to generate any output.\n" +
+                           "Previous command executed was:\n" + a.last_cmd_info)
 
         # Link frontend with backend.
         if not a.expect_exit_code(

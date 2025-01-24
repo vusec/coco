@@ -108,11 +108,17 @@ class Assignment:
         self.basedir = basedir
         self.filter = args.filter
 
+        # Tracks the output of the last command.
+        # Used in case the student's code fails but they exit(0), and we only
+        # later realize they messed up.
+        self.last_cmd_info = "" # type: str
+
         # Write a default grade file if requested. This avoid having some
         # undefined point count if the grade script or grading VM crashes.
         self._write_grade_file(0, 1)
 
     def report_test_start(self, test_name, is_safeguard=False):
+        self.last_cmd_info = ""
         self.current_test_is_safeguard = is_safeguard
         safeguard_str = ""
         if is_safeguard:
@@ -170,11 +176,15 @@ class Assignment:
         result = sp.run(
             cmd, shell=False, stdout=sp.PIPE, stderr=sp.STDOUT, timeout=grade_timeout
         )
+
+        cmd_info = ""
+        cmd_info += COLOR_INFO + "\n Command: " + COLOR_END + " ".join(cmd)
+        cmd_info += COLOR_INFO + "\n Script output:\n" + COLOR_END
+        cmd_info += result.stdout.decode("utf-8")
+        self.last_cmd_info = cmd_info
         if result.returncode != expected:
-            msg = f"Expected return code {expected} but got {result.returncode}."
-            msg += COLOR_INFO + "\n Command: " + COLOR_END + " ".join(cmd)
-            msg += COLOR_INFO + "\n Script output:\n" + COLOR_END
-            msg += result.stdout.decode("utf-8")
+            msg = f"Expected return code {expected} but got {result.returncode}.\n"
+            msg += cmd_info
             self.report_error(msg)
             return False
         return True
