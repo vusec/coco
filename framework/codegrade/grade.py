@@ -43,7 +43,6 @@ to_replace_list = [
     "/assign1/tests",
     "/assign2/benchmarks",
     "/assign3/tests",
-    "/assign4/tests",
     "/assign4/original-src",
     "/run.py",
     "/grade",

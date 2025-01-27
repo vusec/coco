@@ -17,8 +17,15 @@ skipped_suffixes = [
     "__pycache__",
 ]
 
+# The tests for assignment 4 are part of the submission.
+always_included_suffixes = [
+    "assign4/tests"
+]
 
 def _should_handin_file(path):
+    for s in always_included_suffixes:
+        if path.endswith(s):
+            return True
     for s in skipped_suffixes:
         if path.endswith(s):
             return False
