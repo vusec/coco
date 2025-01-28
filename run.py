@@ -65,6 +65,17 @@ shell = "/usr/bin/fish"
 # --network=host gets networking running if the host's network drivers are busted.
 docker_extra_args = [] if nohost else ["--network=host"]
 
+# Handle SELinunx
+selinux_mount_option = ""
+try:
+    result = sp.run(["getenforce"], check=True, stdout=sp.PIPE, text=True)
+    if result.stdout.strip() == "Enforcing":
+        selinux_mount_options = ",relabel=shared"
+    else:
+        selinux_mount_options = ""
+except (sp.CalledProcessError, FileNotFoundError):
+    selinux_mount_options = ""
+
 # The path to the docker file.
 docker_path = os.path.join(script_dir, "framework", "docker")
 
@@ -91,7 +102,7 @@ def start():
     if cmd_args.ulimit:
         args += ["--ulimit", "nofile=10000:10000"]
     # Mount the course folder in the container.
-    args += ["--mount", f"type=bind,source={script_dir},target={docker_home_dir}"]
+    args += ["--mount", f"type=bind,source={script_dir},target={docker_home_dir}{selinux_mount_options}"]
     if cmd_args.command:
         args += [image_name]
         args += [shell, "-c", cmd_args.command]
