@@ -14,6 +14,10 @@ INPUT="$1"
 OUTPUT="$2"
 PASS="$3"
 
+# Delete the output, This avoids that we run tests with a stale IR file from
+# a previous run.
+rm -f "${OUTPUT}"
+
 # Remove the '.original' from the pass name.
 PASS_NAME="${PASS/.original/}"
 
